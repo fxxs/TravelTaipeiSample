@@ -1,0 +1,148 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'kotlin-parcelize'
+    id("androidx.navigation.safeargs.kotlin")
+    id 'dagger.hilt.android.plugin'
+    id 'de.mannodermaus.android-junit5'
+}
+
+android {
+    namespace 'com.example.traveltaipei'
+    compileSdk appTargetSdk
+
+    defaultConfig {
+        applicationId "com.example.traveltaipei"
+        minSdk appMinSdk
+        targetSdk appTargetSdk
+        versionCode versionCode
+        versionName versionName
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables {
+            useSupportLibrary true
+        }
+    }
+
+    flavorDimensions "environment"
+
+    productFlavors {
+        production {
+            dimension "environment"
+        }
+
+        beta {
+            initWith production
+            dimension "environment"
+        }
+
+        stage {
+            dimension "environment"
+            applicationIdSuffix ".$name"
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            debuggable false
+            zipAlignEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            minifyEnabled false
+            debuggable true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersionCode
+        targetCompatibility = JavaVersionCode
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersionCode
+    }
+
+    buildFeatures {
+        buildConfig true
+        dataBinding true
+        viewBinding true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = ComposeExtensionVersion
+    }
+
+    packagingOptions {
+        resources {
+            excludes += '/META-INF/{AL2.0,LGPL2.1}'
+        }
+    }
+
+    testOptions {
+        unitTests.all {
+            useJUnitPlatform()
+        }
+    }
+}
+
+dependencies {
+//    implementation 'androidx.core:core-ktx:1.9.0'
+//    implementation 'androidx.appcompat:appcompat:1.6.1'
+//    implementation 'com.google.android.material:material:1.9.0'
+//    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+//    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.6.2'
+//    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2'
+//    implementation 'androidx.navigation:navigation-fragment-ktx:2.7.4'
+//    implementation 'androidx.navigation:navigation-ui-ktx:2.7.4'
+//    testImplementation 'junit:junit:4.13.2'
+//    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+//    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+
+
+    implementation Core.ktx
+    implementation 'com.google.android.libraries.places:places:3.1.0'
+    implementation 'androidx.browser:browser:1.5.0'
+    testImplementation TestLib.coroutine
+    testImplementation TestLib.jupiterApi
+    testImplementation TestLib.jupiterEngine
+    testImplementation TestLib.jupiterParams
+    testRuntimeOnly TestLib.jupiterEngine
+    testImplementation TestLib.mockkAndroid
+    testImplementation TestLib.mockkAgent
+    androidTestImplementation TestLib.extJunit
+    androidTestImplementation TestLib.espressoCore
+
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+    implementation 'com.google.android.flexbox:flexbox:3.0.0'
+    implementation 'com.facebook.shimmer:shimmer:0.5.0'
+    implementation 'androidx.browser:browser:1.5.0'
+
+    implementation Navigation.fragment
+    implementation Navigation.ui
+    implementation Navigation.hilt
+
+    implementation Room.runtime
+    implementation Room.ktx
+    implementation Room.rxRoom
+    annotationProcessor Room.compiler
+    kapt Room.compiler
+
+    // 引用的module中有使用.aar時編譯會出現以下問題, 這行是處理這個問題
+    // 該module要使用 --> compileOnly fileTree(include: ['*.jar', '*.aar'], dir: 'libs')
+    // Direct local .aar file dependencies are not supported when building an AAR.
+    // The resulting AAR would be broken because the classes and Android resources from any local .aar file dependencies would not be packaged in the resulting AAR.
+    // Previous versions of the Android Gradle Plugin produce broken AARs in this case too (despite not throwing this error).
+    implementation fileTree(include: ['*.jar', '*.aar'], dir: 'libs')
+
+    implementation project(':repository')
+    implementation project(':core:model')
+
+    addBaseUiDependencies(project)
+    addAllHiltDependenciesForAndroidModule(project)
+    addBaseComposeDependencies(project)
+}

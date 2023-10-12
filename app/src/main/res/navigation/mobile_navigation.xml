@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_explore">
+
+    <fragment
+        android:id="@+id/navigation_explore"
+        android:name="com.example.traveltaipei.ui.attractions.AttractionsFragment"
+        android:label="@string/title_attractions"
+        tools:layout="@layout/fragment_common">
+
+        <action
+            android:id="@+id/action_attractions_to_attraction"
+            app:destination="@id/attraction_fragment"
+            app:enterAnim="@anim/slide_in_from_right"
+            app:popExitAnim="@anim/slide_out_to_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/attraction_fragment"
+        android:name="com.example.traveltaipei.ui.attractions.AttractionFragment"
+        android:label="AttractionFragment">
+        <argument
+            android:name="attraction"
+            app:argType="com.example.traveltaipei.pojo.AttractionBO"
+            app:nullable="false" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_events"
+        android:name="com.example.traveltaipei.ui.events.EventsFragment"
+        android:label="@string/title_events"
+        tools:layout="@layout/fragment_common" />
+
+    <fragment
+        android:id="@+id/navigation_tour"
+        android:name="com.example.traveltaipei.ui.tour.TourFragment"
+        android:label="@string/title_tour"
+        tools:layout="@layout/fragment_notifications" />
+</navigation>

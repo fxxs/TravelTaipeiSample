@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/translate"
+        android:icon="@drawable/ic_translate"
+        app:iconTint="@color/white"
+        android:title=""
+        app:showAsAction="always">
+        <!-- "file" submenu -->
+        <menu>
+            <item
+                android:id="@+id/lang_zh_tw"
+                android:title="@string/lang_zh_tw"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/lang_zh_cn"
+                android:title="@string/lang_zh_cn"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/lang_en"
+                android:title="@string/lang_en"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/lang_ja"
+                android:title="@string/lang_ja"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/lang_ko"
+                android:title="@string/lang_ko"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/lang_es"
+                android:title="@string/lang_es"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/lang_id"
+                android:title="@string/lang_id"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/lang_th"
+                android:title="@string/lang_th"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/lang_vi"
+                android:title="@string/lang_vi"
+                app:showAsAction="never" />
+        </menu>
+    </item>
+</menu>
